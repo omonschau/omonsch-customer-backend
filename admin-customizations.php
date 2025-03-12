@@ -1,5 +1,4 @@
 <?php
-
 // Remove unwanted dashboard widgets
 function remove_dashboard_widgets() {
     remove_meta_box('dashboard_quick_press', 'dashboard', 'side');      // Remove "Quick Draft"
@@ -19,40 +18,44 @@ add_action('wp_before_admin_bar_render', 'remove_wp_logo_from_admin_bar', 0);
 // Hide specific menu items except for Appearance and Customizer
 function customize_admin_menu() {
     global $submenu;
-
+    $omonsch_cap_settings = get_option('omonsch_cb_options_caps');
     // Remove specific submenu items under Appearance and other sections
-    remove_submenu_page('themes.php', 'theme-editor.php');              // Hide "Appearance" -> "Theme Editor"
-    remove_submenu_page('plugins.php', 'plugin-editor.php');            // Hide "Plugins" -> "Plugin Editor"
-    remove_submenu_page('options-general.php', 'options-writing.php');  // Hide "Settings" -> "Writing"
-    remove_submenu_page('options-general.php', 'options-reading.php');  // Hide "Settings" -> "Reading"
-    remove_submenu_page('options-general.php', 'options-discussion.php'); // Hide "Settings" -> "Discussion"
-    remove_submenu_page('options-general.php', 'options-media.php');    // Hide "Settings" -> "Media"
-    remove_submenu_page('options-general.php', 'options-permalink.php'); // Hide "Settings" -> "Permalinks"
+    $customizer_url = add_query_arg( 'return', urlencode( remove_query_arg( wp_removable_query_args(), wp_unslash( $_SERVER['REQUEST_URI'] ) ) ), 'customize.php' );
+    !empty($omonsch_cap_settings['hide_customizer']) ? remove_submenu_page( 'themes.php', $customizer_url ) : '';
+    !empty($omonsch_cap_settings['hide_options_writing']) ? remove_submenu_page('options-general.php', 'options-writing.php') : '';    // Hide "Settings" -> "Writing"
+    !empty($omonsch_cap_settings['hide_options_reading']) ? remove_submenu_page('options-general.php', 'options-reading.php') : '';    // Hide "Settings" -> "Reading"
+    !empty($omonsch_cap_settings['hide_options_discussion']) ? remove_submenu_page('options-general.php', 'options-discussion.php') : ''; // Hide "Settings" -> "Discussion"
+    !empty($omonsch_cap_settings['hide_options_media']) ? remove_submenu_page('options-general.php', 'options-media.php') : '';      // Hide "Settings" -> "Media"
+    !empty($omonsch_cap_settings['hide_options_permalink']) ? remove_submenu_page('options-general.php', 'options-permalink.php') : '';  // Hide "Settings" -> "Permalinks"
+
+    // Never visible to the customer
+    remove_submenu_page('themes.php', 'theme-editor.php');      // Hide "Appearance" -> "Theme Editor"
+    remove_submenu_page('plugins.php', 'plugin-editor.php');    // Hide "Plugins" -> "Plugin Editor"
 }
 add_action('admin_menu', 'customize_admin_menu', 999);
 
 // Ensure "Appearance" menu and Pages are accessible for "Kunde" role
 function ensure_menu_access_for_customer() {
     $role = get_role('kunde');
+    $omonsch_cap_settings = get_option('omonsch_cb_options_caps');
+
     if ($role) {
-        $role->add_cap('edit_theme_options');
-        $role->add_cap('edit_posts');
-        $role->add_cap('delete_posts');
-        $role->add_cap('delete_others_posts');
-        $role->add_cap('edit_pages');
-        $role->add_cap('delete_pages');
-        $role->add_cap('delete_others_pages');
-        $role->add_cap('edit_published_pages');
-        $role->add_cap('delete_private_pages');
-        $role->add_cap('delete_private_posts');
-        $role->add_cap('edit_private_pages');
-        $role->add_cap('edit_private_posts');
-        $role->add_cap('publish_posts');
-        $role->add_cap('publish_pages');
-        $role->add_cap('edit_others_pages');
-        $role->add_cap('edit_others_posts');
-        $role->add_cap('edit_published_posts');
-        $role->add_cap('upload_files');
+        !empty($omonsch_cap_settings['edit_theme_options']) ? $role->add_cap('edit_theme_options') :$role->remove_cap('edit_theme_options');
+        !empty($omonsch_cap_settings['edit_posts']) ? $role->add_cap('edit_posts') :$role->remove_cap('edit_posts');
+        !empty($omonsch_cap_settings['delete_posts']) ? $role->add_cap('delete_posts') :$role->remove_cap('delete_posts');
+        !empty($omonsch_cap_settings['delete_others_posts']) ? $role->add_cap('delete_others_posts') :$role->remove_cap('delete_others_posts');
+        !empty($omonsch_cap_settings['edit_pages']) ? $role->add_cap('edit_pages') :$role->remove_cap('edit_pages');
+        !empty($omonsch_cap_settings['delete_pages']) ? $role->add_cap('delete_pages') :$role->remove_cap('delete_pages');
+        !empty($omonsch_cap_settings['delete_others_pages']) ? $role->add_cap('delete_others_pages') :$role->remove_cap('delete_others_pages');
+        !empty($omonsch_cap_settings['edit_published_pages']) ? $role->add_cap('edit_published_pages') :$role->remove_cap('edit_published_pages');
+        !empty($omonsch_cap_settings['delete_private_pages']) ? $role->add_cap('delete_private_pages') :$role->remove_cap('delete_private_pages');
+        !empty($omonsch_cap_settings['delete_private_posts']) ? $role->add_cap('delete_private_posts') :$role->remove_cap('delete_private_posts');
+        !empty($omonsch_cap_settings['edit_private_pages']) ? $role->add_cap('edit_private_pages') :$role->remove_cap('edit_private_pages');
+        !empty($omonsch_cap_settings['publish_pages']) ? $role->add_cap('publish_pages') :$role->remove_cap('publish_pages');
+        !empty($omonsch_cap_settings['edit_others_pages']) ? $role->add_cap('edit_others_pages') :$role->remove_cap('edit_others_pages');
+        !empty($omonsch_cap_settings['edit_others_posts']) ? $role->add_cap('edit_others_posts') :$role->remove_cap('edit_others_posts');
+        !empty($omonsch_cap_settings['edit_published_posts']) ? $role->add_cap('edit_published_posts') :$role->remove_cap('edit_published_posts');
+        !empty($omonsch_cap_settings['upload_files']) ? $role->add_cap('upload_files') :$role->remove_cap('upload_files');
     }
 }
 add_action('admin_init', 'ensure_menu_access_for_customer');
