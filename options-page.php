@@ -15,7 +15,7 @@ class MySettingsPage
         // Only for ADMINS
         add_options_page(
                 'Settings Admin',
-                'Omonsch Customer Backend',
+                'Customer Backend',
                 'manage_options',
                 'omonsch-customer-backend',
                 array($this, 'create_admin_page')

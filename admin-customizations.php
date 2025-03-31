@@ -29,14 +29,16 @@ function customize_admin_menu() {
     !empty($omonsch_cap_settings['hide_options_permalink']) ? remove_submenu_page('options-general.php', 'options-permalink.php') : '';  // Hide "Settings" -> "Permalinks"
 
     // Never visible to the customer
-    remove_submenu_page('themes.php', 'theme-editor.php');      // Hide "Appearance" -> "Theme Editor"
-    remove_submenu_page('plugins.php', 'plugin-editor.php');    // Hide "Plugins" -> "Plugin Editor"
+    if (!current_user_can('administrator')) {
+      remove_submenu_page('themes.php', 'theme-editor.php');      // Hide "Appearance" -> "Theme Editor"
+      remove_submenu_page('plugins.php', 'plugin-editor.php');    // Hide "Plugins" -> "Plugin Editor"
+    }
 }
 add_action('admin_menu', 'customize_admin_menu', 999);
 
 // Ensure "Appearance" menu and Pages are accessible for "Kunde" role
 function ensure_menu_access_for_customer() {
-    $role = get_role('kunde');
+    $role = get_role('Website-Admin');
     $omonsch_cap_settings = get_option('omonsch_cb_options_caps');
 
     if ($role) {
