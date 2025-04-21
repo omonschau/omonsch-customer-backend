@@ -103,6 +103,7 @@ class MySettingsPage
                 'delete_pages' => 'Seiten löschen',
                 'delete_others_pages' => 'Fremde Seiten löschen',
                 'edit_published_pages' => 'Veröffentlichte Seiten bearbeiten',
+                'delete_published_pages' => 'Veröffentlichte Seiten löschen',
                 'delete_private_pages' => 'Private Seiten löschen',
                 'delete_private_posts' => 'Private Beiträge löschen',
                 'edit_private_pages' => 'Private Seiten bearbeiten',

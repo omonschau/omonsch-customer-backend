@@ -38,7 +38,7 @@ add_action('admin_menu', 'customize_admin_menu', 999);
 
 // Ensure "Appearance" menu and Pages are accessible for "Kunde" role
 function ensure_menu_access_for_customer() {
-    $role = get_role('Website-Admin');
+    $role = get_role('WebsiteAdmin');
     $omonsch_cap_settings = get_option('omonsch_cb_options_caps');
 
     if ($role) {
@@ -48,6 +48,7 @@ function ensure_menu_access_for_customer() {
         !empty($omonsch_cap_settings['delete_others_posts']) ? $role->add_cap('delete_others_posts') :$role->remove_cap('delete_others_posts');
         !empty($omonsch_cap_settings['edit_pages']) ? $role->add_cap('edit_pages') :$role->remove_cap('edit_pages');
         !empty($omonsch_cap_settings['delete_pages']) ? $role->add_cap('delete_pages') :$role->remove_cap('delete_pages');
+        !empty($omonsch_cap_settings['delete_published_pages']) ? $role->add_cap('delete_published_pages') :$role->remove_cap('delete_published_pages');
         !empty($omonsch_cap_settings['delete_others_pages']) ? $role->add_cap('delete_others_pages') :$role->remove_cap('delete_others_pages');
         !empty($omonsch_cap_settings['edit_published_pages']) ? $role->add_cap('edit_published_pages') :$role->remove_cap('edit_published_pages');
         !empty($omonsch_cap_settings['delete_private_pages']) ? $role->add_cap('delete_private_pages') :$role->remove_cap('delete_private_pages');
@@ -60,7 +61,7 @@ function ensure_menu_access_for_customer() {
         !empty($omonsch_cap_settings['upload_files']) ? $role->add_cap('upload_files') :$role->remove_cap('upload_files');
     }
 }
-add_action('admin_init', 'ensure_menu_access_for_customer');
+add_action('init', 'ensure_menu_access_for_customer');
 
 // Remove WordPress version from footer
 function remove_wp_version_footer() {
