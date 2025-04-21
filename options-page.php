@@ -106,6 +106,7 @@ class MySettingsPage
                 'delete_published_pages' => 'Veröffentlichte Seiten löschen',
                 'delete_private_pages' => 'Private Seiten löschen',
                 'delete_private_posts' => 'Private Beiträge löschen',
+                'delete_published_posts' => 'Veröffentlichte Beiträge löschen',
                 'edit_private_pages' => 'Private Seiten bearbeiten',
                 'edit_private_posts' => 'Private Beiträge bearbeiten',
                 'publish_posts' => 'Beiträge veröffentlichen',

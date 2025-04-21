@@ -3,7 +3,7 @@
 * Plugin Name:    Oliver Monschau - Customer Backend
 * Plugin URI:     https://omonschau.de/
 * Description:    Customizes the WordPress admin area for customers.
-* Version:        1.0.4
+* Version:        1.0.5
 * Author:         Oliver Monschau, Michael Amting
 * Author URI:     https://omonschau.de/
 */
@@ -30,6 +30,12 @@ function add_customer_role()
         'delete_posts' => false,
         'upload_files' => true
     ]);
+
+    // Remove Role 'Website-Admin'
+    $role = get_role('Website-Admin');
+    if ($role) {
+        remove_role('Website-Admin');
+    }
 
     // Fehlende Berechtigungen hinzufügen
     $role = get_role('WebsiteAdmin');

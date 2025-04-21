@@ -53,8 +53,10 @@ function ensure_menu_access_for_customer() {
         !empty($omonsch_cap_settings['edit_published_pages']) ? $role->add_cap('edit_published_pages') :$role->remove_cap('edit_published_pages');
         !empty($omonsch_cap_settings['delete_private_pages']) ? $role->add_cap('delete_private_pages') :$role->remove_cap('delete_private_pages');
         !empty($omonsch_cap_settings['delete_private_posts']) ? $role->add_cap('delete_private_posts') :$role->remove_cap('delete_private_posts');
+        !empty($omonsch_cap_settings['delete_published_posts']) ? $role->add_cap('delete_published_posts') :$role->remove_cap('delete_published_posts');
         !empty($omonsch_cap_settings['edit_private_pages']) ? $role->add_cap('edit_private_pages') :$role->remove_cap('edit_private_pages');
         !empty($omonsch_cap_settings['publish_pages']) ? $role->add_cap('publish_pages') :$role->remove_cap('publish_pages');
+        !empty($omonsch_cap_settings['publish_posts']) ? $role->add_cap('publish_posts') :$role->remove_cap('publish_posts');
         !empty($omonsch_cap_settings['edit_others_pages']) ? $role->add_cap('edit_others_pages') :$role->remove_cap('edit_others_pages');
         !empty($omonsch_cap_settings['edit_others_posts']) ? $role->add_cap('edit_others_posts') :$role->remove_cap('edit_others_posts');
         !empty($omonsch_cap_settings['edit_published_posts']) ? $role->add_cap('edit_published_posts') :$role->remove_cap('edit_published_posts');
